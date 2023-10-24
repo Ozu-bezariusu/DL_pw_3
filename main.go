@@ -8,5 +8,4 @@ func main() {
 	test.TestSBlock()
 	test.TestPBlock()
 	test.TestPnSblocks()
-
 }

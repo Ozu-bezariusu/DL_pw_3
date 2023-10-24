@@ -1,5 +1,6 @@
 package blocks
 
+// AES S-box hard coded
 func GetSBox() [16][16]byte {
 	return [16][16]byte{
 		{0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76},
@@ -26,6 +27,7 @@ func InverseSBox(sbox [16][16]byte) [16][16]byte {
 	for i := 0; i < 16; i++ {
 		for j := 0; j < 16; j++ {
 			value := sbox[i][j]
+			//get values by rows and columns by high and low bits
 			invertedSbox[value>>4][value&0x0F] = byte(i<<4 | j)
 		}
 	}
@@ -36,12 +38,13 @@ func InverseSBox(sbox [16][16]byte) [16][16]byte {
 func Sblock(input byte, sbox [16][16]byte) byte {
 	tetrad1 := (input & 0xF0) >> 4 //get high-order bits
 	tetrad2 := input & 0x0F        //get low-order bits
+	//simply get values from s-box by rows and columns
 	return sbox[tetrad1][tetrad2]
 }
 
 func InvSblock(input byte, invSbox [16][16]byte) byte {
 	tetrad1 := (input & 0xF0) >> 4 //get high-order bits
 	tetrad2 := input & 0x0F        //get low-order bits
-
+	//simply get values from reversed s-box by rows and columns
 	return invSbox[tetrad1][tetrad2]
 }

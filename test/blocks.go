@@ -7,7 +7,6 @@ import (
 )
 
 func TestSBlock() {
-	//var inputCases []uint8
 	fmt.Print("Starting S-block testing...\n")
 	sbox := blocks.GetSBox()
 	invsbox := blocks.InverseSBox(sbox)
